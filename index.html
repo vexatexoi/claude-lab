@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101827">
+<title>XOI | Veri Merkezi</title>
+<style>
+:root{--bg:#0b1220;--panel:rgba(255,255,255,.075);--panel2:rgba(255,255,255,.045);--line:rgba(255,255,255,.13);--text:#eef4ff;--muted:#aab7cc;--accent:#9ed7ff;--accent2:#c5b8ff;--good:#9be4c0;--warn:#ffd68a;--bad:#ff9eaa}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 8% 0%,#243b61 0,transparent 42%),radial-gradient(ellipse at 95% 10%,#382b61 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+.wrap{max-width:1120px;margin:auto;padding:22px 16px 50px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,rgba(158,215,255,.25),rgba(197,184,255,.14));display:grid;place-items:center;font-weight:800;letter-spacing:.04em}.eyebrow{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.18em}.brand h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-size:12px;background:var(--panel2)}
+.hero,.panel,.stat{border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,255,255,.095),rgba(255,255,255,.035));box-shadow:0 16px 50px rgba(0,0,0,.18);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:22px}
+.hero{padding:22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:18px}.hero h2{font-size:clamp(21px,4vw,30px);line-height:1.15;margin:5px 0 9px}.hero p{max-width:650px;color:var(--muted);margin:0}.hero-mark{font-size:42px;opacity:.8}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.stat{padding:16px}.stat .label{color:var(--muted);font-size:12px}.stat strong{display:block;font-size:25px;margin-top:4px}
+.layout{display:grid;grid-template-columns:minmax(0, .92fr) minmax(0,1.35fr);gap:16px;align-items:start}.panel{padding:19px;min-width:0}.panel h3{margin:0 0 5px;font-size:18px}.hint{color:var(--muted);font-size:12px;margin:0 0 16px}
+label{display:block;font-size:12px;color:#c9d5e8;margin:12px 0 6px}input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(4,10,20,.48);color:var(--text);font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(158,215,255,.12)}select option{background:#101827}textarea{min-height:66px;resize:vertical}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button,.filebtn{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:10px 13px;color:var(--text);background:rgba(255,255,255,.08);font:inherit;font-weight:600;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none}
+button.primary{background:linear-gradient(135deg,rgba(158,215,255,.28),rgba(197,184,255,.24));border-color:rgba(158,215,255,.4)}button:hover,.filebtn:hover{filter:brightness(1.12)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.notice{padding:10px 12px;border-radius:12px;background:rgba(155,228,192,.09);border:1px solid rgba(155,228,192,.2);color:#c9f6dd;font-size:12px;margin-top:12px}.notice.warn{background:rgba(255,214,138,.08);border-color:rgba(255,214,138,.2);color:#ffe6b4}.notice.error{background:rgba(255,158,170,.08);border-color:rgba(255,158,170,.25);color:#ffd1d6}
+.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0}.toolbar input{max-width:260px}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{border-collapse:collapse;width:100%;min-width:620px;font-size:12px}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}th{color:var(--muted);font-weight:600;background:rgba(255,255,255,.035)}tr:last-child td{border-bottom:0}.tag{display:inline-block;padding:4px 7px;border-radius:7px;font-size:10px;border:1px solid var(--line);color:var(--muted)}.tag.demo{color:var(--warn);border-color:rgba(255,214,138,.3)}.empty{padding:26px;text-align:center;color:var(--muted)}.smallbtn{padding:5px 8px;font-size:11px}.footer{color:var(--muted);font-size:11px;text-align:center;margin-top:20px}.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px}.section-title .sub{max-width:48%;text-align:right}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.hero{align-items:flex-start}.hero-mark{display:none}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:21px}.wrap{padding:16px 12px 36px}.panel{padding:16px}.top{align-items:flex-start}.pill{display:none}}
+@media(max-width:420px){.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:span 2}.grid2{grid-template-columns:1fr}.brand h1{font-size:21px}.hero{padding:18px}.actions button,.actions .filebtn{flex:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">XOI</div><div><div class="eyebrow">Valuation intelligence</div><h1>Veri Merkezi</h1><div class="sub">Kaynaklı veri · izlenebilir kayıt · kontrollü aktarım</div></div></div>
+    <div class="pill" id="storageBadge">Yerel kayıt hazırlanıyor…</div>
+  </header>
+  <section class="hero">
+    <div><div class="eyebrow">İlk çalışan modül · v0.1</div><h2>Değerlemenin temelini<br>güvenilir veri oluşturur.</h2><p>Şirket ve sektör göstergelerini kaynaklarıyla kaydedin. Kayıtları arayın, doğrulama durumlarını izleyin ve JSON yedeği alın. Bu sürüm veri altyapısı prototipidir; henüz değerleme hesaplamaz.</p></div><div class="hero-mark">◈</div>
+  </section>
+  <section class="stats">
+    <div class="stat"><div class="label">Toplam gözlem</div><strong id="countObs">0</strong></div>
+    <div class="stat"><div class="label">Kaynak sayısı</div><strong id="countSources">0</strong></div>
+    <div class="stat"><div class="label">Kontrol bekleyen</div><strong id="countPending">0</strong></div>
+  </section>
+  <div class="layout">
+    <section class="panel">
+      <h3>Yeni veri gözlemi</h3><p class="hint">Her veri kaydı bir kaynakla eşleşmelidir. Kaynak adı zorunludur; URL varsa ekleyin.</p>
+      <form id="entryForm">
+        <label for="entityType">Veri türü</label>
+        <select id="entityType"><option value="sector">Sektör göstergesi</option><option value="company">Şirket verisi</option><option value="macro">Makroekonomik gösterge</option></select>
+        <label for="entityName">Şirket / sektör / kapsam adı *</label><input id="entityName" required maxlength="120" placeholder="Örn. Türkiye hurda piyasası / EREGL">
+        <label for="metric">Gösterge adı *</label><input id="metric" required maxlength="120" placeholder="Örn. HMS 1&2 hurda fiyatı">
+        <div class="grid2">
+          <div><label for="periodType">Dönem türü *</label><select id="periodType"><option value="monthly">Aylık</option><option value="weekly">Haftalık</option><option value="daily">Günlük</option><option value="quarterly">Çeyreklik</option><option value="annual">Yıllık</option><option value="point">Anlık / tekil</option></select></div>
+          <div><label for="periodStart">Dönem tarihi *</label><input id="periodStart" type="date" required></div>
+        </div>
+        <div class="grid2">
+          <div><label for="value">Değer *</label><input id="value" type="number" step="any" required placeholder="Örn. 365"></div>
+          <div><label for="unit">Birim *</label><input id="unit" required maxlength="40" placeholder="USD/ton, %, GWh…"></div>
+        </div>
+        <div class="grid2">
+          <div><label for="currency">Para birimi</label><select id="currency"><option value="">Uygulanamaz</option><option>USD</option><option>EUR</option><option>TRY</option><option>GBP</option><option>CNY</option></select></div>
+          <div><label for="status">Doğrulama durumu</label><select id="status"><option value="unverified">Kontrol edilmedi</option><option value="checked">Kontrol edildi</option><option value="verified">Doğrulandı</option><option value="rejected">Reddedildi</option></select></div>
+        </div>
+        <label for="sourceName">Kaynak adı / referans *</label><input id="sourceName" required maxlength="180" placeholder="Örn. SteelOrbis haftalık piyasa raporu">
+        <label for="sourceUrl">Kaynak URL (varsa)</label><input id="sourceUrl" type="url" placeholder="https://…">
+        <div class="grid2">
+          <div><label for="published">Yayın tarihi (varsa)</label><input id="published" type="date"></div>
+          <div><label for="accessed">Erişim tarihi *</label><input id="accessed" type="date" required></div>
+        </div>
+        <label for="notes">Not / metodoloji (isteğe bağlı)</label><textarea id="notes" maxlength="1000" placeholder="Fiyat türü, teslim şekli, bölge, vergi dahil/hariç vb."></textarea>
+        <div class="actions"><button class="primary" type="submit">＋ Kaydı ekle</button><button type="reset" id="resetBtn">Formu temizle</button></div>
+        <div id="formMessage" aria-live="polite"></div>
+      </form>
+    </section>
+    <section class="panel">
+      <div class="section-title"><div><h3>Kayıt defteri</h3><p class="hint" style="margin-bottom:0">Filtreleyin, durumunu değiştirin veya kaydı silin.</p></div><div class="sub">En yeni kayıt üstte</div></div>
+      <div class="toolbar"><input id="search" placeholder="Ara: gösterge, şirket, kaynak…"><select id="filterStatus" aria-label="Doğrulama durumuna göre filtre"><option value="">Tüm durumlar</option><option value="unverified">Kontrol edilmedi</option><option value="checked">Kontrol edildi</option><option value="verified">Doğrulandı</option><option value="rejected">Reddedildi</option></select></div>
+      <div class="tablewrap"><table><thead><tr><th>Gösterge / kapsam</th><th>Değer</th><th>Dönem</th><th>Kaynak / durum</th><th>İşlem</th></tr></thead><tbody id="recordsBody"></tbody></table><div class="empty" id="emptyState">Henüz kayıt yok. İlk gözlemi soldaki formdan ekleyin.</div></div>
+      <div class="actions"><button class="primary" id="exportBtn">↓ JSON yedeği al</button><label class="filebtn" for="importFile" style="margin:0">↑ JSON içe aktar</label><input id="importFile" type="file" accept=".json,application/json" hidden><button id="demoBtn">Örnek veri ekle</button></div>
+      <div class="notice warn">Örnek veri seçeneği yalnızca sentetik demonstrasyon kaydı ekler; gerçek piyasa verisi değildir. Gerçek gözlemler için kaynak bilgilerini kendiniz doğrulayın.</div>
+      <div id="globalMessage" aria-live="polite"></div>
+    </section>
+  </div>
+  <div class="footer">XOI · Veri Merkezi v0.1 · Veriler bu tarayıcıda saklanır. Düzenli JSON yedeği alın; tarayıcı verilerinin kalıcılığı garanti edilemez.</div>
+</div>
+<script>
+(() => {
+  "use strict";
+  const KEY = "xoi-data-center-v1";
+  const $ = id => document.getElementById(id);
+  const statusLabels = {unverified:"Kontrol edilmedi", checked:"Kontrol edildi", verified:"Doğrulandı", rejected:"Reddedildi"};
+  let db = {schemaVersion:"1.0.0", application:"XOI", exportedAt:null, sources:[], observations:[]};
+  let persistMode = "localStorage";
+  const today = new Date().toISOString().slice(0,10);
+  $("periodStart").value = today; $("accessed").value = today;
+  function id(prefix){ return prefix + "-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,8); }
+  function safeText(value){ return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+  function message(target, text, kind=""){ $(target).innerHTML = text ? `<div class="notice ${kind}">${safeText(text)}</div>` : ""; }
+  function load(){
+    try {
+      const raw = localStorage.getItem(KEY);
+      if(raw){ const parsed = JSON.parse(raw); if(parsed && Array.isArray(parsed.observations) && Array.isArray(parsed.sources)){db=parsed;} }
+      $("storageBadge").textContent = "Bu tarayıcıda kayıt etkin";
+    } catch(e) {
+      persistMode = "memory";
+      $("storageBadge").textContent = "Geçici oturum";
+      message("globalMessage","Tarayıcı kalıcı kaydı kullanılamıyor. Bu oturumda veriler sayfa açıkken tutulabilir; JSON yedeğini indirin.","warn");
+    }
+    render();
+  }
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(db)); persistMode="localStorage"; $("storageBadge").textContent="Bu tarayıcıda kayıt etkin"; }
+    catch(e){ persistMode="memory"; $("storageBadge").textContent="Geçici oturum"; message("globalMessage","Tarayıcıya kaydedilemedi. Verilerinizi kaybetmemek için JSON yedeği alın.","warn"); }
+  }
+  function render(){
+    $("countObs").textContent = db.observations.length;
+    $("countSources").textContent = db.sources.length;
+    $("countPending").textContent = db.observations.filter(o=>o.verificationStatus==="unverified").length;
+    const q = $("search").value.trim().toLocaleLowerCase("tr");
+    const f = $("filterStatus").value;
+    const rows = [...db.observations].sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||"")).filter(o=>{
+      const s = db.sources.find(x=>x.id===o.sourceId);
+      const hay = [o.entityName,o.metricName,o.value,o.unit,o.periodStart,s?.name,s?.url,o.notes].join(" ").toLocaleLowerCase("tr");
+      return (!q || hay.includes(q)) && (!f || o.verificationStatus===f);
+    });
+    $("recordsBody").innerHTML = rows.map(o=>{
+      const s = db.sources.find(x=>x.id===o.sourceId) || {name:"Kaynak bulunamadı"};
+      const value = new Intl.NumberFormat("tr-TR",{maximumFractionDigits:6}).format(Number(o.value));
+      const date = o.periodStart || "—";
+      return `<tr><td><strong>${safeText(o.metricName)}</strong><br><span style="color:#aab7cc">${safeText(o.entityName)} · ${safeText(o.entityType)}</span>${o.demo?'<br><span class="tag demo">SENTETİK ÖRNEK</span>':""}<br><span class="tag">${safeText(o.unit)}</span></td><td><strong>${safeText(value)}</strong> ${safeText(o.currency||"")}</td><td>${safeText(date)}<br><span style="color:#aab7cc">${safeText(o.periodType)}</span></td><td>${safeText(s.name)}<br><span class="tag">${safeText(statusLabels[o.verificationStatus]||o.verificationStatus)}</span></td><td><button class="smallbtn" data-action="cycle" data-id="${safeText(o.id)}">Durum</button> <button class="smallbtn" data-action="delete" data-id="${safeText(o.id)}">Sil</button></td></tr>`;
+    }).join("");
+    $("emptyState").style.display = rows.length ? "none" : "block";
+  }
+  $("entryForm").addEventListener("submit", e=>{
+    e.preventDefault();
+    const entityName=$("entityName").value.trim(), metricName=$("metric").value.trim(), sourceName=$("sourceName").value.trim(), unit=$("unit").value.trim();
+    if(!entityName||!metricName||!sourceName||!unit||!$("periodStart").value||!$("accessed").value){message("formMessage","Zorunlu alanları doldurun: kapsam, gösterge, dönem, değer, birim, kaynak adı ve erişim tarihi.","error");return;}
+    const value = Number($("value").value);
+    if(!Number.isFinite(value)){message("formMessage","Değer geçerli bir sayı olmalıdır.","error");return;}
+    const sourceUrl=$("sourceUrl").value.trim();
+    if(sourceUrl){try{const u=new URL(sourceUrl);if(!["http:","https:"].includes(u.protocol))throw Error();}catch(_){message("formMessage","Kaynak URL'si http:// veya https:// ile başlamalıdır.","error");return;}}
+    const source = {id:id("src"),name:sourceName,url:sourceUrl||null,publicationDate:$("published").value||null,accessedAt:$("accessed").value,createdAt:new Date().toISOString()};
+    const observation = {id:id("obs"),entityType:$("entityType").value,entityName,metricName,periodType:$("periodType").value,periodStart:$("periodStart").value,periodEnd:null,value,unit,currency:$("currency").value||null,sourceId:source.id,verificationStatus:$("status").value,notes:$("notes").value.trim(),createdAt:new Date().toISOString(),revision:1,supersedesId:null,demo:false};
+    db.sources.push(source); db.observations.push(observation); save(); render();
+    message("formMessage","Kayıt eklendi ve tarayıcıya kaydedildi.","");
+    $("entryForm").reset(); $("periodStart").value=today; $("accessed").value=today;
+  });
+  $("recordsBody").addEventListener("click", e=>{
+    const b=e.target.closest("button[data-action]"); if(!b)return;
+    const ix=db.observations.findIndex(o=>o.id===b.dataset.id); if(ix<0)return;
+    if(b.dataset.action==="delete"){
+      if(!confirm("Bu gözlem kaydını silmek istiyor musunuz? Kaynak kaydı başka gözlemler tarafından kullanılmıyorsa o da silinir."))return;
+      const sid=db.observations[ix].sourceId; db.observations.splice(ix,1);
+      if(!db.observations.some(o=>o.sourceId===sid))db.sources=db.sources.filter(s=>s.id!==sid);
+      save();render();message("globalMessage","Kayıt silindi.");
+    } else if(b.dataset.action==="cycle"){
+      const order=["unverified","checked","verified","rejected"];const o=db.observations[ix];o.verificationStatus=order[(order.indexOf(o.verificationStatus)+1)%order.length];o.revision=(o.revision||1)+1;o.updatedAt=new Date().toISOString();save();render();
+    }
+  });
+  $("search").addEventListener("input",render); $("filterStatus").addEventListener("change",render);
+  $("exportBtn").addEventListener("click",()=>{
+    db.exportedAt=new Date().toISOString();
+    const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});
+    const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="xoi-veri-yedegi-"+today+".json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    save();message("globalMessage","JSON yedeği oluşturuldu. Dosyayı güvenli bir yerde saklayın.");
+  });
+  $("importFile").addEventListener("change", async e=>{
+    const file=e.target.files?.[0];if(!file)return;
+    try{
+      const incoming=JSON.parse(await file.text());
+      if(!incoming||!Array.isArray(incoming.observations)||!Array.isArray(incoming.sources))throw Error("Dosyada sources ve observations dizileri bulunamadı.");
+      const srcIds=new Set(incoming.sources.map(s=>s.id));
+      const broken=incoming.observations.some(o=>!o.id||!o.metricName||!o.sourceId||!srcIds.has(o.sourceId)||!Number.isFinite(Number(o.value)));
+      if(broken)throw Error("En az bir gözlem eksik veya geçersiz. İçe aktarma iptal edildi.");
+      if(!confirm("İçe aktarma mevcut XOI kayıtlarının yerine geçer. Önce JSON yedeği aldıysanız devam edin."))return;
+      db={schemaVersion:incoming.schemaVersion||"1.0.0",application:"XOI",exportedAt:incoming.exportedAt||null,sources:incoming.sources,observations:incoming.observations};
+      save();render();message("globalMessage","JSON yedeği içe aktarıldı.");
+    }catch(err){message("globalMessage","İçe aktarma başarısız: "+(err.message||"dosya okunamadı"),"error");}
+    finally{e.target.value="";}
+  });
+  $("demoBtn").addEventListener("click",()=>{
+    if(!confirm("Sentetik bir örnek kayıt eklensin mi? Bu gerçek piyasa verisi değildir."))return;
+    const s={id:id("src"),name:"SENTETİK DEMO — gerçek kaynak değildir",url:null,publicationDate:null,accessedAt:today,createdAt:new Date().toISOString()};
+    db.sources.push(s);db.observations.push({id:id("obs"),entityType:"sector",entityName:"Demo — Türkiye hurda piyasası",metricName:"Örnek hurda fiyatı",periodType:"monthly",periodStart:today,value:365,unit:"USD/ton",currency:"USD",sourceId:s.id,verificationStatus:"unverified",notes:"Sadece arayüz testi için uydurulmuş örnek; gerçek veri olarak kullanılmamalıdır.",createdAt:new Date().toISOString(),revision:1,supersedesId:null,demo:true});
+    save();render();message("globalMessage","Sentetik demo kaydı eklendi. Gerçek veri değildir.","warn");
+  });
+  $("resetBtn").addEventListener("click",()=>message("formMessage",""));
+  load();
+})();
+</script>
+</body>
+</html>
